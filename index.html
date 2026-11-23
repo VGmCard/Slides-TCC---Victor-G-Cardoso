@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TCC - Victor Gomes Cardoso | POO vs DOD em RK4</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Barra Superior de Navegação Fixa -->
+  <header class="sticky-header">
+    <a href="#hero" class="brand-box">
+      <img src="assets/image1.jpg" alt="Logo UniFil" class="brand-logo-img">
+      <div class="brand-text">
+        <span>TCC • UniFil</span>
+        <span class="badge-header">Ciência da Computação</span>
+      </div>
+    </a>
+
+    <nav>
+      <ul class="nav-links">
+        <li class="nav-link-item"><a href="#origem">01. Introdução</a></li>
+        <li class="nav-link-item"><a href="#problema">02. O Problema</a></li>
+        <li class="nav-link-item"><a href="#objetivos">03. Objetivos</a></li>
+        <li class="nav-link-item"><a href="#estado-arte">04. Estado da Arte</a></li>
+        <li class="nav-link-item"><a href="#aos-soa">05. AoS vs SoA</a></li>
+        <li class="nav-link-item"><a href="#hipoteses">06. Hipóteses</a></li>
+        <li class="nav-link-item"><a href="#metodologia">07. Metodologia</a></li>
+        <li class="nav-link-item"><a href="#resultados">08. Resultados</a></li>
+        <li class="nav-link-item"><a href="#conclusao">09. Cronograma</a></li>
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <!-- Cronômetro da Apresentação -->
+      <div class="timer-box" title="Cronômetro (Tecla T)">
+        <span id="timerDisplay">00:00</span>
+        <button id="btnTimerToggle" class="timer-btn" title="Iniciar/Pausar">▶</button>
+        <button id="btnTimerReset" class="timer-btn" title="Zerar Tempo">↺</button>
+      </div>
+
+      <button id="btnToggleNotes" class="action-btn" title="Roteiro de Apoio (Tecla S)">
+        <span>🎙️ Roteiro</span>
+        <span style="font-family: var(--font-code); font-size: 0.7rem; background: rgba(255,255,255,0.1); padding: 1px 5px; border-radius: 4px;">S</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Indicador Dinâmico de Progresso de Leitura -->
+  <div id="scrollProgressBar" class="scroll-progress-bar"></div>
+
+  <!-- Container Principal -->
+  <div class="page-container">
+
+    <!-- CAPA & EPÍGRAFE -->
+    <header class="section-block" id="hero" style="padding-top: 10px;">
+      <div class="hero-card">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 14px;">
+          <div style="font-size: 0.82rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-cyan);">
+            Centro Universitário Filadélfia – UniFil • Trabalho de Conclusão de Curso
+          </div>
+          <div style="font-size: 0.82rem; color: var(--text-muted); font-family: var(--font-code);">
+            Londrina • 2026
+          </div>
+        </div>
+
+        <h1 style="font-size: 2.2rem; font-weight: 800; line-height: 1.28; color: #ffffff; letter-spacing: -0.02em; margin-bottom: 12px;">
+          Comparação entre Programação Orientada a Objetos e Design Orientado a Dados em C++ Aplicada ao Método de Runge-Kutta de 4ª Ordem:
+        </h1>
+        <p style="font-size: 1.3rem; color: var(--accent-cyan); font-weight: 600; margin-bottom: 24px;">
+          Uma Análise do Custo Computacional e da Abstração
+        </p>
+
+        <!-- Epígrafe Original do Projeto -->
+        <div class="formal-quote" style="margin: 20px 0;">
+          "Nós temos de fazer as coisas por um bom motivo, uma razão sensata; não apenas porque os outros países fazem."
+          <span class="formal-quote-source">— Richard P. Feynman (Palestra proferida na Universidade do Brasil, Rio de Janeiro, 1952)</span>
+        </div>
+
+        <div class="hero-meta">
+          <div>
+            <div class="meta-item-label">Acadêmico</div>
+            <div class="meta-item-value">Victor Gomes Cardoso</div>
+          </div>
+          <div>
+            <div class="meta-item-label">Orientador</div>
+            <div class="meta-item-value">Prof. Dr. Guilherme A. Cardoso</div>
+          </div>
+          <div>
+            <div class="meta-item-label">Curso</div>
+            <div class="meta-item-value">Bacharelado em Ciência da Computação</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+
+    <!-- SEÇÃO 01: INTRODUÇÃO & CONTEXTUALIZAÇÃO -->
+    <section class="section-block" id="origem">
+      <div class="section-tag">01. Introdução & Contextualização</div>
+      <h2 class="section-title">Contextualização e Origem do Trabalho</h2>
+      <p class="section-lead">
+        Origem prática no estudo do Canhão de Gauss e delimitação metodológica ao método numérico RK4.
+      </p>
+
+      <!-- Nível 1: A Trajetória da POO e C++ -->
+      <div class="single-card">
+        <div class="single-card-header">
+          <span class="single-card-title">Expressividade na Engenharia de Software</span>
+          <span class="badge-chip blue" style="margin: 0;">Contexto Histórico</span>
+        </div>
+        <div class="single-card-body">
+          <p>
+            A Programação Orientada a Objetos consolidou-se historicamente para reduzir a complexidade cognitiva do desenvolvimento por meio de classes, encapsulamento e hierarquias.
+          </p>
+          <p>
+            A linguagem C++ compila diretamente para código de máquina nativo sem máquinas virtuais ou coleta de lixo, permitindo isolar com precisão o custo da abstração sobre tempo e memória.
+          </p>
+        </div>
+        <div class="card-citation">
+          <span class="citation-badge">Ref</span>
+          <span><strong>DAHL & NYGAARD (1966)</strong>; <strong>GOLDMAN & ROBINSON (1983)</strong>; <strong>STROUSTRUP (2013, 2022)</strong>.</span>
+        </div>
+      </div>
+
+      <!-- Nível 2: Origem no Canhão de Gauss e Delimitação -->
+      <div class="single-card highlight">
+        <div class="single-card-header">
+          <span class="single-card-title">Origem da Pesquisa e Delimitação do Escopo</span>
+          <span class="badge-chip cyan" style="margin: 0;">Delimitação</span>
+        </div>
+        <div class="single-card-body">
+          <p>
+            <strong>Origem:</strong> Estudo do Canhão de Gauss (Coilgun) com a questão: um paradigma de programação afeta a dispersão de energia do disparo?
+          </p>
+          <p>
+            <strong>Delimitação:</strong> Para evitar que a montagem de protótipo físico e circuitos de potência se tornassem um gargalo de prazos, delimitou-se o escopo ao núcleo computacional: resolução de equações diferenciais via Runge-Kutta de 4ª Ordem (RK4) no Sistema de Lorenz.
+          </p>
+        </div>
+        <div class="card-citation">
+          <span class="citation-badge">Ref</span>
+          <span><strong>WAZLAWICK, R. S. (2020)</strong> — <em>Metodologia de pesquisa para ciência da computação</em> (Critérios de viabilidade e delimitação de escopo).</span>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- SEÇÃO 02: O PROBLEMA DE PESQUISA -->
+    <section class="section-block" id="problema">
+      <div class="section-tag">02. Problema de Pesquisa</div>
+      <h2 class="section-title">Formulação do Problema</h2>
+      <p class="section-lead">
+        O conflito entre a expressividade humana do código e a simpatia mecânica com o hardware.
+      </p>
+
+      <!-- Nível 1: A Tensão Central -->
+      <div class="single-card">
+        <div class="single-card-header">
+          <span class="single-card-title">Expressividade vs. Simpatia Mecânica</span>
+          <span class="badge-chip amber" style="margin: 0;">Trade-off</span>
+        </div>
+        <div class="single-card-body">
+          <p>
+            A abstração em POO favorece a legibilidade e o modelo mental humano, mas impõe custos de despacho dinâmico (tabelas virtuais) e dispersão de memória.
+          </p>
+          <p>
+            O Data-Oriented Design (DOD) prioriza a disposição dos dados conforme a arquitetura física do processador, visando abstrações de custo zero em tempo de execução.
+          </p>
+        </div>
+        <div class="card-citation">
+          <span class="citation-badge">Ref</span>
+          <span><strong>ACTON, M. (2014)</strong>; <strong>FABIAN, R. (2018)</strong>; <strong>ISO/IEC TR 18015:2004</strong>.</span>
+        </div>
+      </div>
+
+      <!-- Nível 2: Pergunta Norteadora -->
+      <div class="single-card highlight">
+        <div class="single-card-header">
+          <span class="single-card-title">Pergunta Norteadora da Pesquisa</span>
+          <span class="badge-chip cyan" style="margin: 0;">Problema Formal</span>
+        </div>
+        <div class="single-card-body">
+          <div class="formal-quote" style="font-size: 1.2rem; font-weight: 600; color: #ffffff;">
+            "Qual é o custo computacional e de abstração imposto pela Programação Orientada a Objetos (POO) em comparação com o Data-Oriented Design (DOD) em C++ na implementação de algoritmos numéricos para a resolução de equações diferenciais?"
+          </div>
+        </div>
+        <div class="card-citation">
+          <span class="citation-badge">Fonte</span>
+          <span>Projeto de Pesquisa apresentado ao Colegiado de Ciência da Computação – UniFil (CARDOSO, 2026).</span>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- SEÇÃO 03: OBJETIVOS -->
+    <section class="section-block" id="objetivos">
+      <div class="section-tag">03. Objetivos</div>
+      <h2 class="section-title">Objetivos Geral e Específicos</h2>
+      <p class="section-lead">
+        Objetivo geral, fundamentação estratégica das escolhas da pesquisa e etapas específicas.
+      </p>
+
+      <!-- Nível 1: Objetivo Geral + Perguntas Estratégicas -->
+      <div class="single-card highlight-emerald">
+        <div class="single-card-header">
+          <span class="single-card-title">Objetivo Geral</span>
+          <span class="badge-chip emerald" style="margin: 0;">Objetivo</span>
+        </div>
+        <div class="single-card-body">
+          <p style="font-size: 1.15rem; font-weight: 600; color: #ffffff; margin-bottom: 16px;">
+            Analisar o impacto computacional e o custo de abstração impostos pela Programação Orientada a Objetos (POO) e pelo Data-Oriented Design (DOD) na linguagem C++ na resolução de equações diferenciais via RK4, avaliando o compromisso entre expressividade do código e eficiência de execução.
+          </p>
+
+          <!-- Espaço Extra: Perguntas Fundamentais da Pesquisa -->
+          <div class="qa-grid">
+            <div class="qa-card">
+              <div class="qa-question">
+                <span class="qa-badge">Por que</span>
+                <span>Comparar dois paradigmas?</span>
+              </div>
+              <p class="qa-answer">
+                Para isolar o impacto estrito da arquitetura de software e da modelagem lógica sobre o hardware, mantendo a formulação matemática e a complexidade algorítmica rigorosamente idênticas.
+              </p>
+            </div>
+
+            <div class="qa-card">
+              <div class="qa-question">
+                <span class="qa-badge">Por que</span>
+                <span>Em C++?</span>
+              </div>
+              <p class="qa-answer">
+                Linguagem multiparadigma que compila diretamente para código nativo sem máquinas virtuais ou Garbage Collector, viabilizando controle determinístico e mensuração pura de memória e CPU.
+              </p>
+            </div>
+
+            <div class="qa-card">
+              <div class="qa-question">
+                <span class="qa-badge">Por que</span>
+                <span>Aplicado a métodos numéricos?</span>
+              </div>
+              <p class="qa-answer">
+                Algoritmos iterativos executam milhões de cálculos repetitivos sobre o mesmo conjunto de dados, tornando o padrão de acesso à memória e as taxas de <em>cache misses</em> o gargalo crítico de desempenho.
+              </p>
+            </div>
+
+            <div class="qa-card">
+              <div class="qa-question">
+                <span class="qa-badge">Por que</span>
+                <span>POO e DOD?</span>
+              </div>
+              <p class="qa-answer">
+                Representam o contraste direto entre a abstração centrada no modelo mental humano (POO/AoS) versus a simpatia mecânica centrada na física do processador (DOD/SoA).
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="card-citation">
+          <span class="citation-badge">Ref</span>
+          <span>CARDOSO (2026); WAZLAWICK (2020); STROUSTRUP (2022); ACTON (2014).</span>
+        </div>
+      </div>
+
+      <!-- Nível 2: Objetivos Específicos -->
+      <div class="single-card">
+        <div class="single-card-header">
+          <span class="single-card-title">Objetivos Específicos</span>
+          <span class="badge-chip blue" style="margin: 0;">Etapas</span>
+        </div>
+        <div class="single-card-body">
+          <ul style="list-style: none; padding-left: 0;">
+            <li style="margin-bottom: 10px; padding-left: 20px; position: relative;">
+              <span style="position: absolute; left: 0; color: var(--accent-cyan); font-weight: 700;">1.</span>
+              <strong>Formalizar o modelo numérico:</strong> Adotar o integrador Runge-Kutta de 4ª Ordem (RK4) aplicado ao Sistema Dinâmico de Lorenz sob complexidade $O(N)$.
+            </li>
+            <li style="margin-bottom: 10px; padding-left: 20px; position: relative;">
+              <span style="position: absolute; left: 0; color: var(--accent-cyan); font-weight: 700;">2.</span>
+              <strong>Implementar os dois paradigmas:</strong> Desenvolver a versão POO (AoS com métodos virtuais) e a versão DOD (SoA contíguo e funções livres).
+            </li>
+            <li style="margin-bottom: 10px; padding-left: 20px; position: relative;">
+              <span style="position: absolute; left: 0; color: var(--accent-cyan); font-weight: 700;">3.</span>
+              <strong>Mensurar métricas de baixo nível:</strong> Coletar tempo de CPU via <code>&lt;chrono&gt;</code> e contadores de hardware via <code>perf stat</code> (L1 misses, LLC misses, IPC e vetorização SIMD).
+            </li>
+            <li style="margin-bottom: 10px; padding-left: 20px; position: relative;">
+              <span style="position: absolute; left: 0; color: var(--accent-cyan); font-weight: 700;">4.</span>
+              <strong>Aferir a qualidade do código:</strong> Mensurar linhas de código (SLOC), esforço de manutenção e proximidade com a notação matemática.
+            </li>
+            <li style="padding-left: 20px; position: relative;">
+              <span style="position: absolute; left: 0; color: var(--accent-cyan); font-weight: 700;">5.</span>
+              <strong>Elaborar matriz de decisão:</strong> Tratar estatisticamente os dados ($K=30$) e mapear os limiares em que cada paradigma é recomendado na computação científica.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- SEÇÃO 04: ESTADO DA ARTE E A LACUNA -->
+    <section class="section-block" id="estado-arte">
+      <div class="section-tag">04. Referencial Teórico</div>
+      <h2 class="section-title">O Estado da Arte e A Lacuna Científica</h2>
+      <p class="section-lead">
+        Convergência entre Engenharia de Software e Computação de Alto Desempenho (HPC).
+      </p>
+
+      <!-- Nível 1: A Literatura Existente -->
+      <div class="single-card">
+        <div class="single-card-header">
+          <span class="single-card-title">Panorama dos Estudos Existentes</span>
+          <span class="badge-chip amber" style="margin: 0;">Literatura</span>
+        </div>
+        <div class="single-card-body">
+          <p>
+            <strong>Estudos Interlinguagens:</strong> Comparações clássicas (C, C++, Java, Python) mesclam os custos de máquinas virtuais, interpretadores e coleta de lixo com o paradigma de programação.
+          </p>
+          <p>
+            <strong>Manuais de Otimização:</strong> Guias técnicos em C++ tratam chamadas virtuais e alinhamento de memória como recomendações empíricas isoladas, sem investigação sob algoritmos numéricos determinísticos.
+          </p>
+        </div>
+        <div class="card-citation">
+          <span class="citation-badge">Ref</span>
+          <span><strong>PRECHELT (2000)</strong>; <strong>PEREIRA et al. (2017)</strong>; <strong>FOG (2023)</strong>; <strong>BULKA & MAYHEW (1999)</strong>.</span>
+        </div>
+      </div>
+
+      <!-- Nível 2: A Lacuna -->
+      <div class="single-card highlight-emerald">
+        <div class="single-card-header">
+          <span class="single-card-title">A Lacuna Científica</span>
+          <span class="badge-chip emerald" style="margin: 0;">Originalidade</span>
+        </div>
+        <div class="single-card-body">
+          <p>
+            Carência de pesquisas experimentais que comparem sistematicamente POO e DOD implementando integradores RK4 dentro do mesmo ambiente compilado em C++, avaliando o preço estrito da abstração sobre algoritmos determinísticos.
+          </p>
+        </div>
+        <div class="card-citation">
+          <span class="citation-badge">Ref</span>
+          <span>CARDOSO (2026); WAZLAWICK (2020).</span>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- SEÇÃO 05: CONFLITO ESTRUTURAL AOS VS SOA (ÚNICA SEÇÃO TÉCNICA) -->
+    <section class="section-block" id="aos-soa">
+      <div class="section-tag">05. Seção Técnica</div>
+      <h2 class="section-title">O Conflito Estrutural: Array of Structures vs. Structure of Arrays</h2>
+      <p class="section-lead">
+        A organização dos dados na memória determina a frequência de cache misses e o aproveitamento das linhas de 64 bytes.
+      </p>
+
+      <!-- Nível 1: A Mecânica das Linhas de Cache e Cache Misses -->
+      <div class="single-card">
+        <div class="single-card-header">
+          <span class="single-card-title">Linhas de Cache de 64 Bytes e a Importância das Cache Misses</span>
+          <span class="badge-chip blue" style="margin: 0;">Mecânica de Memória</span>
+        </div>
+        <div class="single-card-body">
+          <p>
+            <strong>O que é uma Cache Miss:</strong> A CPU não busca bytes isolados da memória; ela transfere blocos indivisíveis de <strong>64 bytes</strong> (linhas de cache). Quando a CPU precisa de um dado ausente nas caches rápidas (L1/L2/L3), ocorre uma <em>cache miss</em>, forçando o pipeline do processador a pausar (<em>stall</em>) por dezenas ou centenas de ciclos. Em métodos iterativos com milhões de passos, as <em>cache misses</em> constituem o gargalo principal de execução.
+          </p>
+          <p>
+            <strong>POO Clássica (Array of Structures - AoS):</strong> Encapsula todos os atributos de uma entidade contiguamente. Ao iterar pelo RK4 para atualizar apenas uma coordenada (ex.: $X$), a CPU carrega compulsoriamente os atributos vizinhos não utilizados ($Y, Z \dots$). A cache enche com dados inúteis e ocorrem sucessivas <em>cache misses</em> por acesso disperso (<em>strided access</em>).
+          </p>
+          <p>
+            <strong>Data-Oriented Design (Structure of Arrays - SoA):</strong> Segrega atributos homogêneos em vetores contíguos. Ao atualizar $X$, a linha de cache de 64 bytes vem 100% preenchida com valores consecutivos de $X$. As <em>cache misses</em> são minimizadas e a auto-vetorização SIMD opera em capacidade plena.
+          </p>
+        </div>
+        <div class="card-citation">
+          <span class="citation-badge">Ref</span>
+          <span><strong>HENNESSY & PATTERSON (2017)</strong>; <strong>HAGER & WELLEIN (2010)</strong>; <strong>ACTON (2014)</strong>; <strong>FABIAN (2018)</strong>.</span>
+        </div>
+      </div>
+
+      <!-- Nível 2: Simulador Interativo da Linha de Cache -->
+      <div class="single-card highlight">
+        <div class="single-card-header">
+          <span class="single-card-title">Demonstração Interativa da Linha de Cache de 64 Bytes</span>
+          <span class="badge-chip cyan" style="margin: 0;">Simulador</span>
+        </div>
+        <div class="single-card-body">
+          <div class="interactive-container" style="margin: 0; padding: 18px;">
+            <div class="sim-controls">
+              <div class="sim-tabs">
+                <button id="tabAos" class="sim-tab-btn active">📦 AoS (POO Clássica)</button>
+                <button id="tabSoa" class="sim-tab-btn">⚡ SoA (DOD Moderno)</button>
+              </div>
+              <button id="btnRunStep" class="sim-action-btn">
+                <span>▶ Executar Passo: Atualizar Variável X (RK4)</span>
+              </button>
+            </div>
+
+            <div class="memory-view">
+              <div id="memLegendText" style="font-size: 0.85rem; color: var(--accent-cyan); font-family: var(--font-code);">
+                Disposição na Memória: [P0: x, y, z, vx] [P1: x, y, z, vx] ...
+              </div>
+              <div class="mem-row">
+                <div class="mem-label">Cache Line (64B):</div>
+                <div id="memCellsContainer" class="mem-cells"></div>
+              </div>
+            </div>
+
+            <div class="sim-stats">
+              <div class="stat-box">
+                <div id="statBandwidth" class="stat-value" style="color: var(--accent-rose);">25%</div>
+                <div class="stat-desc">Aproveitamento da Linha de Cache (64B)</div>
+              </div>
+              <div class="stat-box">
+                <div id="statSimd" class="stat-value" style="color: var(--accent-rose);">Inibida</div>
+                <div class="stat-desc">Auto-Vetorização SIMD</div>
+              </div>
+              <div class="stat-box">
+                <div id="statLatency" class="stat-value" style="color: var(--accent-amber);">Elevada (Stride)</div>
+                <div class="stat-desc">Latência Efetiva de Acesso</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Comparativo Sintético de Código -->
+          <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 18px;">
+            <div class="code-block">
+              <span class="code-comment">// POO (AoS): Entidades agrupadas com vtable</span><br>
+              <span class="code-keyword">class</span> <span class="code-type">Particle</span> { <span class="code-type">double</span> x, y, z, vx, vy, vz; <span class="code-keyword">virtual void</span> step(); };<br>
+              <span class="code-type">std::vector</span>&lt;<span class="code-type">Particle</span>&gt; system;
+            </div>
+            <div class="code-block">
+              <span class="code-comment">// DOD (SoA): Vetores paralelos contíguos por atributo</span><br>
+              <span class="code-keyword">struct</span> <span class="code-type">ParticleSystem</span> { <span class="code-type">std::vector</span>&lt;<span class="code-type">double</span>&gt; x, y, z, vx, vy, vz; };<br>
+              <span class="code-keyword">void</span> <span class="code-var">updateX</span>(<span class="code-type">double</span>* <span class="code-keyword">__restrict</span> x, <span class="code-type">size_t</span> N);
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- SEÇÃO 06: HIPÓTESES DE PESQUISA -->
+    <section class="section-block" id="hipoteses">
+      <div class="section-tag">06. Hipóteses</div>
+      <h2 class="section-title">Hipóteses de Pesquisa</h2>
+      <p class="section-lead">
+        Formulação para testes empíricos de falseabilidade sob metodologia científica.
+      </p>
+
+      <!-- Nível 1: Hipótese Nula -->
+      <div class="single-card highlight-rose" style="border-left: 5px solid var(--accent-rose);">
+        <div class="single-card-header">
+          <span class="single-card-title" style="color: var(--accent-rose);">Hipótese Nula (H₀)</span>
+          <span class="badge-chip" style="margin: 0; color: var(--accent-rose); border-color: rgba(244,63,94,0.3);">Controle</span>
+        </div>
+        <div class="single-card-body">
+          <p style="font-size: 1.12rem; font-weight: 600; color: #ffffff;">
+            A estruturação do código sob POO ou DOD em C++ não produz diferenças estatisticamente significativas no tempo de execução, nas taxas de falhas de cache L1/L3 e nas instruções executadas para o integrador RK4 sob complexidade algorítmica $O(N)$ rigorosamente idêntica.
+          </p>
+        </div>
+        <div class="card-citation">
+          <span class="citation-badge">Ref</span>
+          <span><strong>WAZLAWICK, R. S. (2020)</strong> — Hipótese de não-diferença e falseabilidade.</span>
+        </div>
+      </div>
+
+      <!-- Nível 2: Hipótese Alternativa -->
+      <div class="single-card highlight-emerald" style="border-left: 5px solid var(--accent-emerald);">
+        <div class="single-card-header">
+          <span class="single-card-title" style="color: var(--accent-emerald);">Hipótese Alternativa (H₁)</span>
+          <span class="badge-chip" style="margin: 0; color: var(--accent-emerald); border-color: rgba(16,185,129,0.3);">Teste Experimental</span>
+        </div>
+        <div class="single-card-body">
+          <p style="font-size: 1.12rem; font-weight: 600; color: #ffffff;">
+            A implementação em DOD apresentará reduções estatisticamente significativas nas taxas de <em>cache misses</em> e no tempo de execução em relação à POO clássica, evidenciando a penalidade imposta pela abstração de objetos e pelo acesso disperso na memória.
+          </p>
+        </div>
+        <div class="card-citation">
+          <span class="citation-badge">Ref</span>
+          <span><strong>ACTON, M. (2014)</strong>; <strong>HAGER & WELLEIN (2010)</strong>.</span>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- SEÇÃO 07: METODOLOGIA DA PESQUISA -->
+    <section class="section-block" id="metodologia">
+      <div class="section-tag">07. Metodologia</div>
+      <h2 class="section-title">Metodologia da Pesquisa</h2>
+      <p class="section-lead">
+        Pesquisa aplicada, quantitativa e experimental dividida em 4 etapas controladas.
+      </p>
+
+      <!-- Nível 1: As 4 Etapas Estruturadas -->
+      <div class="single-card">
+        <div class="single-card-header">
+          <span class="single-card-title">Etapas Metodológicas Estruturadas</span>
+          <span class="badge-chip cyan" style="margin: 0;">Etapas</span>
+        </div>
+        <div class="single-card-body">
+          <ul style="list-style: none; padding-left: 0;">
+            <li style="margin-bottom: 12px; padding-left: 20px; position: relative;">
+              <strong style="color: var(--accent-cyan);">a) Modelo Matemático Invariante:</strong><br>
+              Integrador Runge-Kutta de 4ª Ordem (RK4) resolvendo o Sistema Caótico de Lorenz em precisão dupla (64 bits), com $O(N)$ rigorosamente idêntico em ambas as versões.
+            </li>
+            <li style="margin-bottom: 12px; padding-left: 20px; position: relative;">
+              <strong style="color: var(--accent-cyan);">b) Implementação Controlada em C++:</strong><br>
+              Versão POO (classes, instâncias e vtables em AoS) versus Versão DOD (vetores contíguos em SoA e funções livres), compiladas sob GCC com flags <code>-O3 -march=native</code>.
+            </li>
+            <li style="margin-bottom: 12px; padding-left: 20px; position: relative;">
+              <strong style="color: var(--accent-cyan);">c) Coleta de Métricas e Profiling de Hardware:</strong><br>
+              Escala crescente de $N$ para estressar caches L1, L2, L3 e memória. Coleta de tempo de CPU via <code>std::chrono</code> e contadores de hardware via <code>perf stat</code> (L1 misses, LLC misses, instruções e IPC) com $K=30$ repetições.
+            </li>
+            <li style="padding-left: 20px; position: relative;">
+              <strong style="color: var(--accent-cyan);">d) Análise Estatística e Síntese:</strong><br>
+              Cálculo de média e desvio padrão, curvas de escalabilidade e cruzamento entre ganhos de hardware versus linhas de código (SLOC) e manutenibilidade.
+            </li>
+          </ul>
+        </div>
+        <div class="card-citation">
+          <span class="citation-badge">Ref</span>
+          <span><strong>WAZLAWICK, R. S. (2020)</strong> — Pesquisa experimental controlada na Ciência da Computação.</span>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- SEÇÃO 08: RESULTADOS ESPERADOS -->
+    <section class="section-block" id="resultados">
+      <div class="section-tag">08. Pré-Análise</div>
+      <h2 class="section-title">Resultados Esperados (Pré-Análise)</h2>
+      <p class="section-lead">
+        Desdobramentos técnicos previstos a partir da literatura de arquitetura de computadores.
+      </p>
+
+      <!-- Nível 1: Resultados Antecipados -->
+      <div class="single-card highlight">
+        <div class="single-card-header">
+          <span class="single-card-title">Desdobramentos Previstos</span>
+          <span class="badge-chip cyan" style="margin: 0;">Resultados</span>
+        </div>
+        <div class="single-card-body">
+          <ul style="list-style: none; padding-left: 0;">
+            <li style="margin-bottom: 10px; padding-left: 20px; position: relative;">
+              <strong style="color: #ffffff;">Degradação de Cache por Escala:</strong> Para $N$ reduzido (cabendo na L1/L2), desempenho próximo. Ao exceder a L3, a POO terá degradação acentuada por <em>cache misses</em> em AoS, enquanto o DOD manterá escalabilidade estável.
+            </li>
+            <li style="margin-bottom: 10px; padding-left: 20px; position: relative;">
+              <strong style="color: #ffffff;">Sobrecarga de Tabelas Virtuais:</strong> Maior número de instruções executadas e menor IPC na POO decorrentes da indireção de ponteiros de vtables e inibição de inlining.
+            </li>
+            <li style="margin-bottom: 10px; padding-left: 20px; position: relative;">
+              <strong style="color: #ffffff;">Vetorização SIMD Nativa:</strong> O arranjo SoA viabiliza auto-vetorização (AVX2), processando múltiplos pontos por ciclo de clock, o que é inibido pelo layout misto de AoS.
+            </li>
+            <li style="padding-left: 20px; position: relative;">
+              <strong style="color: #ffffff;">Matriz de Decisão Arquitetural:</strong> Formulação de diretrizes sobre quando a facilidade da POO compensa sua sobrecarga e onde o DOD é mandatório em computação científica.
+            </li>
+          </ul>
+        </div>
+        <div class="card-citation">
+          <span class="citation-badge">Ref</span>
+          <span><strong>HAGER & WELLEIN (2010)</strong>; <strong>HENNESSY & PATTERSON (2017)</strong>; <strong>FOG (2023)</strong>.</span>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- SEÇÃO 09: CRONOGRAMA & CONCLUSÃO -->
+    <section class="section-block" id="conclusao">
+      <div class="section-tag">09. Cronograma & Conclusão</div>
+      <h2 class="section-title">Cronograma de Atividades e Encerramento</h2>
+      <p class="section-lead">
+        Planejamento das etapas até a entrega da monografia e considerações finais.
+      </p>
+
+      <!-- Nível 1: Cronograma Oficial -->
+      <div class="single-card">
+        <div class="single-card-header">
+          <span class="single-card-title">Cronograma de Atividades</span>
+          <span class="badge-chip blue" style="margin: 0;">Atividades</span>
+        </div>
+        <div class="single-card-body">
+          <div class="diagram-frame" style="margin: 0; padding: 10px;">
+            <img src="assets/image2.png" alt="Cronograma de Atividades do TCC" class="diagram-img" style="max-height: 380px; object-fit: contain;">
+          </div>
+        </div>
+        <div class="card-citation">
+          <span class="citation-badge">Fonte</span>
+          <span>Projeto de Pesquisa TCC (CARDOSO, 2026).</span>
+        </div>
+      </div>
+
+      <!-- Nível 2: Agradecimento Final -->
+      <div class="single-card highlight-emerald" style="text-align: center; padding: 36px;">
+        <div style="font-size: 2.2rem; margin-bottom: 8px;">🤝</div>
+        <div style="font-size: 1.4rem; font-weight: 700; color: #ffffff; margin-bottom: 8px;">
+          Muito Obrigado!
+        </div>
+        <p style="font-size: 1rem; color: var(--text-secondary); margin-bottom: 16px;">
+          Agradecimentos ao orientador <strong>Prof. Dr. Guilherme A. Cardoso</strong> e aos membros da banca examinadora.
+        </p>
+        <div style="font-family: var(--font-code); font-size: 0.85rem; color: var(--accent-cyan); background: rgba(0,0,0,0.3); padding: 10px; border-radius: 6px; border: 1px solid var(--border-color); display: inline-block;">
+          Espaço aberto para perguntas e considerações da banca examinadora.
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Botão Voltar ao Topo -->
+  <button id="backToTop" class="back-to-top" title="Voltar ao Topo">▲</button>
+
+  <!-- Gaveta Lateral: Roteiro do Apresentador -->
+  <aside id="notesDrawer" class="notes-drawer">
+    <div class="notes-header">
+      <h3>
+        <span>🎙️ Roteiro do Apresentador</span>
+        <span id="notesCurrentSlide" class="badge-header" style="font-size: 0.72rem; color: var(--accent-amber); border-color: rgba(245, 158, 11, 0.4);">Abertura</span>
+      </h3>
+      <button id="btnCloseNotes" class="notes-close-btn" title="Fechar Roteiro (Esc)">✕</button>
+    </div>
+    <div id="notesContent" class="notes-content">
+      <!-- Injetado dinamicamente via JS de acordo com a seção visível -->
+    </div>
+  </aside>
+
+  <!-- Rodapé -->
+  <footer class="page-footer">
+    <p>Centro Universitário Filadélfia – UniFil • Bacharelado em Ciência da Computação • Londrina, 2026</p>
+    <p style="margin-top: 6px; color: var(--text-muted); font-size: 0.78rem;">
+      Victor Gomes Cardoso • Orientação: Prof. Dr. Guilherme A. Cardoso
+    </p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
